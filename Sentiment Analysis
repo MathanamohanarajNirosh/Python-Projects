@@ -1,0 +1,20 @@
+from transformers import pipeline
+
+
+sentiment_analyzer = pipeline('sentiment-analysis')
+
+def analyze_sentiment(text):
+    
+    result = sentiment_analyzer(text)[0]
+    sentiment = result['label'].lower()
+    score = result['score']
+    return score, sentiment
+
+if __name__ == '__main__':
+    while True:
+        user_input = input("Enter a sentence to analyze (or 'exit' to quit): ")
+        if user_input.lower() == 'exit':
+            break
+        score, sentiment = analyze_sentiment(user_input)
+        print(f"Score: {score:.4f}")
+        print(f"Sentiment: {sentiment}")
